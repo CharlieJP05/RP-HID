@@ -6,9 +6,9 @@ import supervisor
 import usb_cdc
 import time
 
-# updater: sssssssssdfsssssss
-# Modified joystick descriptor with minimal controls
-DEVICE_TYPE = 0x04  # 0x04 (Joystick) 0x05 (Gamepad)
+# Set up the USB HID device descriptor for a joystick
+DEVICE_TYPE = 0x05  # 0x04 (Joystick) 0x05 (Gamepad)
+
 JOYSTICK_DESCRIPTOR = bytes((
     0x05, 0x01,        # Usage Page (Generic Desktop)
     0x09, DEVICE_TYPE,        # Usage (Joystick or Gamepad)
@@ -27,11 +27,11 @@ JOYSTICK_DESCRIPTOR = bytes((
 # Set up the pin you want to use as jumper checks (e.g., GP15)
 pin = digitalio.DigitalInOut(board.GP15)
 pin.switch_to_input(pull=digitalio.Pull.UP)
+# If pin 15 low at startup, enter edit mode
 
 
-
-if not pin.value:
-    # Jumper is connected (GP15 pulled LOW) => enable joystick mode only
+if pin.value:
+    # ==== JOYSTICK MODE ====
     print("Joystick mode  Time: ",time.time())
 
     # Disable CIRCUITPY + serial
@@ -43,14 +43,15 @@ if not pin.value:
     (usb_hid.Device(
         report_descriptor=JOYSTICK_DESCRIPTOR,
         usage_page=0x01,
-        usage=DEVICE_TYPE,             # Joystick
+        usage=DEVICE_TYPE,
         report_ids=(1,),
         in_report_lengths=(2,),
         out_report_lengths=(0,)
     ),)
 )
 else:
-    # Jumper not connected => allow editing
+    # ==== PROGRAM MODE ====
+    
     print("Edit mode (CIRCUITPY + serial enabled) Time: ", time.time())
 
     # Disable all HID devices first
