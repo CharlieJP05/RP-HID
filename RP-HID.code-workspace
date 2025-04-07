@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "F:/"
+		}
+	],
+	"settings": {
+		"python.languageServer": "Pylance",
+		"circuitpython.board.version": "9.2.7",
+		"circuitpython.board.vid": "0x2E8A",
+		"circuitpython.board.pid": "0x101F",
+		"python.analysis.diagnosticSeverityOverrides": {
+			"reportMissingModuleSource": "none",
+			"reportShadowedImports": "none"
+		},
+		"python.analysis.extraPaths": [
+			"c:\\Users\\charl\\.vscode\\extensions\\wmerkens.vscode-circuitpython-v2-0.3.3\\boards\\0x2E8A\\0x101F",
+			"c:\\Users\\charl\\.vscode\\extensions\\wmerkens.vscode-circuitpython-v2-0.3.3\\stubs",
+			"c:\\Users\\charl\\AppData\\Roaming\\Code\\User\\globalStorage\\wmerkens.vscode-circuitpython-v2\\bundle\\20250406\\adafruit-circuitpython-bundle-py-20250406\\lib"
+		]
+	}
+}
